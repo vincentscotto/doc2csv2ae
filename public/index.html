@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>:: DocSpot Word-2-CSV Converter</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+		/>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="content">
+			<h1>DocSpot .doc to .csv data converter</h1>
+			<p>
+				This will convert a docspot word doc
+				<span class="proper">(a properly structured word doc)</span> into a CSV
+				file that you can then use with the AE script to create frame
+				compositions.
+			</p>
+			<form id="upload" enctype="multipart/form-data">
+				<input id="file-input" type="file" name="wordFile" accept=".docx" />
+				<button id="convert" class="button" style="display: none">
+					Convert
+				</button>
+			</form>
+			<div id="status">
+				<span id="status-text"></span>
+				<a id="download-link" style="display: none" href="" download></a>
+			</div>
+		</div>
+		<div class="author">
+			MADE WITH <span class="love">❤️</span> BY
+			<a href="http://github.com/vincentscotto" target="_blank">VINCENT</a>
+		</div>
+		<div id="terminate" class="terminate">
+			<button class="icon" onclick="terminateServer()">
+				<i class="fas fa-power-off"></i>
+			</button>
+			<span class="text"></span>
+		</div>
+
+		<script>
+			const content = document.querySelector(".content");
+			const fileInput = document.getElementById("file-input");
+			const convertButton = document.getElementById("convert");
+			const statusText = document.getElementById("status-text");
+			const downloadLink = document.getElementById("download-link");
+			const terminate = document.getElementById("terminate");
+
+			fileInput.addEventListener("change", function () {
+				if (fileInput.files.length > 0) {
+					convertButton.style.display = "inline-block";
+				} else {
+					convertButton.style.display = "none";
+				}
+			});
+
+			document
+				.getElementById("upload")
+				.addEventListener("submit", function (event) {
+					event.preventDefault();
+
+					const file = fileInput.files[0];
+					const formData = new FormData();
+					formData.append("wordFile", file);
+
+					const xhr = new XMLHttpRequest();
+					xhr.open("POST", "/convert");
+					xhr.onload = function () {
+						if (xhr.status === 200) {
+							statusText.textContent = "Great success! Conversion completed. ";
+							downloadLink.href = xhr.responseText;
+							downloadLink.download = file.name;
+							downloadLink.textContent = "Download CSV";
+							downloadLink.style.display = "inline-block";
+							statusText.style.opacity = "1";
+						} else {
+							statusText.textContent =
+								"Conversion failed! Please check the word doc is properly structured.";
+							downloadLink.style.display = "none";
+						}
+					};
+					xhr.send(formData);
+				});
+
+			function terminateServer() {
+				const messageElement = document.createElement("span");
+				messageElement.classList.add("terminate-text");
+				messageElement.textContent = "Shutting server and webpage in 5 seconds";
+				terminate.appendChild(messageElement);
+
+				let countdown = 5;
+				const countdownInterval = setInterval(() => {
+					countdown--;
+					messageElement.textContent = `Shutting server and webpage in ${countdown} seconds`;
+					if (countdown === 0) {
+						clearInterval(countdownInterval);
+						window.close();
+					}
+				}, 1000);
+
+				const xhr = new XMLHttpRequest();
+				xhr.open("POST", "/terminate");
+				xhr.send();
+			}
+		</script>
+	</body>
+</html>
