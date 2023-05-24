@@ -31,7 +31,7 @@ function convertWordToCSV(inputPath, outputPath) {
               frame = {};
             }
             frame['ID'] = `Frame ${frameIndex++}`;
-          } else if (paragraph !== '=== PAGE TITLE ===') {
+          } else if (paragraph !== '=== FRAME END ===') {
             if (paragraph.includes(': ')) {
               const separatorIndex = paragraph.indexOf(': ');
               const key = paragraph.substring(0, separatorIndex);
