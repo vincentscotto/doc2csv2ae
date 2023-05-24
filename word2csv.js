@@ -64,10 +64,10 @@ function convertWordToCSV(inputPath, outputPath) {
 
         const csvData = frames.map((frame) => ({
           ID: frame['ID'] || '',
-          'Eyebrow copy': frame['Eyebrow copy'] || '',
-          'Body copy 1': frame['Body copy 1'] || '',
-          'Body copy 2': frame['Body copy 2'] || '',
-          'Footnote copy': frame['Footnote copy'] || '',
+          'Eyebrow copy': (frame['Eyebrow copy'] || '').trim(),
+          'Body copy 1': (frame['Body copy 1'] || '').trim(),
+          'Body copy 2': (frame['Body copy 2'] || '').trim(),
+          'Footnote copy': (frame['Footnote copy'] || '').trim(),
         }));
 
         const writer = csvWriter.createObjectCsvWriter(csvWriterOptions);

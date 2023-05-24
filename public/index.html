@@ -24,6 +24,9 @@
 					Convert
 				</button>
 			</form>
+
+			<div id="server-messages"></div>
+
 			<div id="status">
 				<span id="status-text"></span>
 				<a id="download-link" style="display: none" href="" download></a>
@@ -35,7 +38,7 @@
 		</div>
 		<div id="terminate" class="terminate">
 			<button class="icon" onclick="terminateServer()">
-				<i class="fas fa-power-off"></i>
+				<i class="fas fa-power-off shutdown"></i>
 			</button>
 			<span class="text"></span>
 		</div>
@@ -85,15 +88,15 @@
 				});
 
 			function terminateServer() {
-				const messageElement = document.createElement("span");
-				messageElement.classList.add("terminate-text");
-				messageElement.textContent = "Shutting server and webpage in 5 seconds";
-				terminate.appendChild(messageElement);
+				const terminateText = document.createElement("span");
+				terminateText.classList.add("terminate-text");
+				terminateText.textContent = "Shutting server and webpage in 5 seconds";
+				terminate.appendChild(terminateText);
 
 				let countdown = 5;
 				const countdownInterval = setInterval(() => {
 					countdown--;
-					messageElement.textContent = `Shutting server and webpage in ${countdown} seconds`;
+					terminateText.textContent = `Shutting server and webpage in ${countdown} seconds`;
 					if (countdown === 0) {
 						clearInterval(countdownInterval);
 						window.close();
