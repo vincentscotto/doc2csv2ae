@@ -11,10 +11,10 @@ This converts a specifically formatted word doc to a csv, that you can then use 
 following the directions on the page and the csv that is output should look like so: 
 
 ```
-ID,Eyebrow copy,Body copy 1,Body copy 2,Footnote copy
-Frame 1,This is the eyebrow copy content for Frame 1. This is the eyebrow copy content for Frame 1.This is the eyebrow copy content for Frame 1.This is the eyebrow copy content for Frame 1. This is the eyebrow copy content for Frame 1.,This is the body copy 1 content for Frame 1.,This is the body copy 2 content for Frame 1.,This is the footnote copy content for Frame 1.
-Frame 2,This is the eyebrow copy content for Frame 2.,This is the body copy 1 content for Frame 2.,This is the body copy 2 content for Frame 2.,This is the footnote copy content for Frame 2.
-Frame 3,This is the eyebrow copy content for Frame 3.,This is the body copy 1 content for Frame 3.,This is the body copy 2 content for Frame 3.,This is the footnote copy content for Frame 3.
+ID;Eyebrow copy;Body copy 1;Body copy 2;Footnote copy
+Frame 1;This is the eyebrow copy content for Frame 1.;This is the body copy 1 content for Frame 1.;This is the body copy 2 content for Frame 1.;This is the footnote copy content for Frame 1.
+Frame 2;This is the eyebrow copy content for Frame 2.;This is the body copy 1 content for Frame 2.;This is the body copy 2 content for Frame 2.;This is the footnote copy content for Frame 2.
+Frame 3;This is the eyebrow copy content for Frame 3.;This is the body copy 1 content for Frame 3.;This is the body copy 2 content for Frame 3.;This is the footnote copy content for Frame 3.
 ```
 
 
@@ -29,9 +29,9 @@ Basically each frame must be labeled like the following:
 ```
 Frame 1
 
-Eyebrow copy: This is the eyebrow copy content for Frame 1. This is the eyebrow copy content for Frame 1.This is the eyebrow copy content for Frame 1.This is the eyebrow copy content for Frame 1. This is the eyebrow copy content for Frame 1.
+Eyebrow copy: This is the eyebrow copy content for Frame 1. 
 Body copy 1: This is the body copy 1 content for Frame 1.
-Body copy 2: This is the body copy 2 content for Frame 1.
+Body copy 2: This is the body copy 2 content for Frame 1. 
 Footnote copy: This is the footnote copy content for Frame 1.
 
 === FRAME END ===
@@ -42,9 +42,9 @@ the above would be the first frame. if you wanted to add another, it would work 
 ```
 Frame 1
 
-Eyebrow copy: This is the eyebrow copy content for Frame 1. This is the eyebrow copy content for Frame 1.This is the eyebrow copy content for Frame 1.This is the eyebrow copy content for Frame 1. This is the eyebrow copy content for Frame 1.
+Eyebrow copy: This is the eyebrow copy content for Frame 1. 
 Body copy 1: This is the body copy 1 content for Frame 1.
-Body copy 2: This is the body copy 2 content for Frame 1.
+Body copy 2: This is the body copy 2 content for Frame 1. 
 Footnote copy: This is the footnote copy content for Frame 1.
 
 === FRAME END ===
