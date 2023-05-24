@@ -34,7 +34,7 @@ Body copy 1: This is the body copy 1 content for Frame 1.
 Body copy 2: This is the body copy 2 content for Frame 1.
 Footnote copy: This is the footnote copy content for Frame 1.
 
-=== PAGE TITLE ===
+=== FRAME END ===
 ```
 
 the above would be the first frame. if you wanted to add another, it would work like so:
@@ -47,16 +47,16 @@ Body copy 1: This is the body copy 1 content for Frame 1.
 Body copy 2: This is the body copy 2 content for Frame 1.
 Footnote copy: This is the footnote copy content for Frame 1.
 
-=== PAGE TITLE ===
+=== FRAME END ===
 
-Frame 2 Title
+Frame 2 
 
 Eyebrow copy: This is the eyebrow copy content for Frame 2.
 Body copy 1: This is the body copy 1 content for Frame 2.
 Body copy 2: This is the body copy 2 content for Frame 2.
 Footnote copy: This is the footnote copy content for Frame 2.
 
-=== PAGE TITLE ===
+=== FRAME END ===
 ```
 
 and so on and on and on...
