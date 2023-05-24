@@ -22,7 +22,7 @@ Frame 3,This is the eyebrow copy content for Frame 3.,This is the body copy 1 co
 
 the word docs **MUST** be structured correctly. see **template.docx** for an example.
 
-each intended composition must start with **Frame #** and end with **=== PAGE TITLE ===**
+each intended composition must start with **Frame #** and end with **=== FRAME END ===**
 
 Basically each frame must be labeled like the following:
 
