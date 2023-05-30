@@ -16,35 +16,49 @@ function convertWordToCSV(inputPath, outputPath) {
 		mammoth
 			.extractRawText({ path: inputPath }, options)
 			.then(result => {
-				const paragraphs = result.value.split("\n");
 				const frames = [];
-
-				let frame = {};
-				let frameIndex = 1;
-
+				let frame = null;
+				let currentFrameIndex = 1;
 				let currentHeader = "";
 
-				for (const paragraph of paragraphs) {
-					if (paragraph.startsWith("Frame")) {
-						if (Object.keys(frame).length > 0) {
+				const lines = result.value.split("\n");
+
+				for (const line of lines) {
+					if (line.startsWith("Frame")) {
+						if (frame) {
 							frames.push(frame);
-							frame = {};
 						}
-						frame["ID"] = `Frame ${frameIndex++}`;
-					} else if (paragraph !== "=== FRAME END ===") {
-						if (paragraph.includes(": ")) {
-							const separatorIndex = paragraph.indexOf(": ");
-							const key = paragraph.substring(0, separatorIndex);
-							const value = paragraph.substring(separatorIndex + 2).trim();
+						frame = { ID: line.trim() };
+						currentFrameIndex++;
+						currentHeader = "";
+					} else if (line === "=== FRAME END ===") {
+						if (frame) {
+							frames.push(frame);
+							frame = null;
+						}
+						currentHeader = "";
+					} else if (frame && currentHeader) {
+						const separatorIndex = line.indexOf(":");
+						if (separatorIndex !== -1) {
+							const key = line.substring(0, separatorIndex).trim();
+							const value = line.substring(separatorIndex + 1).trim();
 							frame[key] = value;
 							currentHeader = key;
-						} else if (currentHeader) {
-							frame[currentHeader] += " " + paragraph.trim();
+						} else {
+							frame[currentHeader] += " " + line.trim();
+						}
+					} else if (frame && line !== "") {
+						const separatorIndex = line.indexOf(":");
+						if (separatorIndex !== -1) {
+							const key = line.substring(0, separatorIndex).trim();
+							const value = line.substring(separatorIndex + 1).trim();
+							frame[key] = value;
+							currentHeader = key;
 						}
 					}
 				}
 
-				if (Object.keys(frame).length > 0) {
+				if (frame) {
 					frames.push(frame);
 				}
 

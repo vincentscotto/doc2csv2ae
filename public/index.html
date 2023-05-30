@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>:: DocSpot Word-2-CSV Converter</title>
+		<title>Word-2-CSV Converter for DS</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link
 			rel="stylesheet"
@@ -11,12 +11,13 @@
 	</head>
 	<body>
 		<div class="content">
-			<h1>DocSpot .doc to .csv data converter</h1>
+			<h1>DOC-TO-CSV DATA CONVERTER</h1>
 			<p>
 				This will convert a docspot word doc
-				<span class="proper">(a properly structured word doc)</span> into a CSV
-				file that you can then use with the AE script to create frame
-				compositions.
+				<em>(a properly structured word doc)</em> into a CSV file that you can
+				then use with the AE script (<span style="font-family: courier"
+					>csv2ae.jsx</span
+				>) to create frame compositions.
 			</p>
 			<form id="upload" enctype="multipart/form-data">
 				<input id="file-input" type="file" name="wordFile" accept=".docx" />
@@ -72,14 +73,14 @@
 					xhr.open("POST", "/convert");
 					xhr.onload = function () {
 						if (xhr.status === 200) {
-							statusText.textContent = "Great success! Conversion completed. ";
+							statusText.innerHTML = `Great success! Conversion completed. Now you can import into AE using the script csv2ae.jsx.`;
 							downloadLink.href = xhr.responseText;
 							downloadLink.download = file.name;
-							downloadLink.textContent = "Download CSV";
+							downloadLink.innerHTML = "Download CSV";
 							downloadLink.style.display = "inline-block";
 							statusText.style.opacity = "1";
 						} else {
-							statusText.textContent =
+							statusText.innerHTML =
 								"Conversion failed! Please check the word doc is properly structured.";
 							downloadLink.style.display = "none";
 						}
@@ -90,13 +91,13 @@
 			function terminateServer() {
 				const terminateText = document.createElement("span");
 				terminateText.classList.add("terminate-text");
-				terminateText.textContent = "Shutting server and webpage in 5 seconds";
+				terminateText.innerHTML = "Shutting server and webpage in 5 seconds";
 				terminate.appendChild(terminateText);
 
 				let countdown = 5;
 				const countdownInterval = setInterval(() => {
 					countdown--;
-					terminateText.textContent = `Shutting server and webpage in ${countdown} seconds`;
+					terminateText.innerHTML = `Shutting server and webpage in ${countdown} seconds`;
 					if (countdown === 0) {
 						clearInterval(countdownInterval);
 						window.close();
