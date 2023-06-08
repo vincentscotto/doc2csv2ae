@@ -27,6 +27,8 @@ each intended composition must start with **Frame #** and end with **=== FRAME E
 Basically each frame must be labeled like the following:
 
 ```
+=== FRAME START ===
+
 Frame 1
 
 Eyebrow copy: This is the eyebrow copy content for Frame 1. 
@@ -40,6 +42,8 @@ Footnote copy: This is the footnote copy content for Frame 1.
 the above would be the first frame. if you wanted to add another, it would work like so:
 
 ```
+=== FRAME START ===
+
 Frame 1
 
 Eyebrow copy: This is the eyebrow copy content for Frame 1. 
@@ -48,6 +52,8 @@ Body copy 2: This is the body copy 2 content for Frame 1.
 Footnote copy: This is the footnote copy content for Frame 1.
 
 === FRAME END ===
+
+=== FRAME START ===
 
 Frame 2 
 
