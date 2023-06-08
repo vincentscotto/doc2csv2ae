@@ -18,48 +18,32 @@ function convertWordToCSV(inputPath, outputPath) {
 			.then(result => {
 				const frames = [];
 				let frame = null;
-				let currentFrameIndex = 1;
 				let currentHeader = "";
+				let isInFrame = false;
 
 				const lines = result.value.split("\n");
 
 				for (const line of lines) {
-					if (line.startsWith("Frame")) {
-						if (frame) {
-							frames.push(frame);
-						}
-						frame = { ID: line.trim() };
-						currentFrameIndex++;
-						currentHeader = "";
+					if (line === "=== FRAME START ===") {
+						frame = {};
+						isInFrame = true;
 					} else if (line === "=== FRAME END ===") {
 						if (frame) {
 							frames.push(frame);
 							frame = null;
 						}
-						currentHeader = "";
-					} else if (frame && currentHeader) {
+						isInFrame = false;
+					} else if (frame && isInFrame && line !== "") {
 						const separatorIndex = line.indexOf(":");
 						if (separatorIndex !== -1) {
 							const key = line.substring(0, separatorIndex).trim();
 							const value = line.substring(separatorIndex + 1).trim();
 							frame[key] = value;
 							currentHeader = key;
-						} else {
+						} else if (currentHeader) {
 							frame[currentHeader] += " " + line.trim();
 						}
-					} else if (frame && line !== "") {
-						const separatorIndex = line.indexOf(":");
-						if (separatorIndex !== -1) {
-							const key = line.substring(0, separatorIndex).trim();
-							const value = line.substring(separatorIndex + 1).trim();
-							frame[key] = value;
-							currentHeader = key;
-						}
 					}
-				}
-
-				if (frame) {
-					frames.push(frame);
 				}
 
 				const csvHeader = [
@@ -76,8 +60,8 @@ function convertWordToCSV(inputPath, outputPath) {
 					fieldDelimiter: ";"
 				};
 
-				const csvData = frames.map(frame => ({
-					ID: frame["ID"] || "",
+				const csvData = frames.map((frame, index) => ({
+					ID: `Frame ${index + 1}`,
 					"Eyebrow copy": (frame["Eyebrow copy"] || "").trim(),
 					"Body copy 1": (frame["Body copy 1"] || "").trim(),
 					"Body copy 2": (frame["Body copy 2"] || "").trim(),

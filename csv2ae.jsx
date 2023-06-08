@@ -71,19 +71,16 @@ function importFile() {
 
                 // Set font size for each of the 4 text layers
                 if (headerColumns[c] == "Eyebrow copy") {
-                  // update fontsize
-                  layerFontSize.fontSize = 15;
+                  layerFontSize.fontSize = 14;
                   textProp.setValue(layerFontSize);
                 } else if (headerColumns[c] == "Body copy 1") {
-                  // update fontsize
-                  layerFontSize.fontSize = 40;
+                  layerFontSize.fontSize = 29;
                   textProp.setValue(layerFontSize);
                 } else if (headerColumns[c] == "Body copy 2") {
-                  // update fontsize
-                  layerFontSize.fontSize = 40;
+                  layerFontSize.fontSize = 22;
                   textProp.setValue(layerFontSize);
                 } else if (headerColumns[c] == "Footnote copy") {
-                  layerFontSize.fontSize = 10;
+                  layerFontSize.fontSize = 	16;
                   textProp.setValue(layerFontSize);
                 }
               }
