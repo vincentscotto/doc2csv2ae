@@ -32,34 +32,45 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90vh;
+  height: 100vh;
   background-color: var(--dark-grey);
   background: repeating-linear-gradient(-45deg, var(--primary-bg), var(--primary-bg) 1px, var(--secondary-bg) 2px, var(--secondary-bg) 10px);
   font-family: "Open Sans", sans-serif;
+  flex-flow: column nowrap;
 }
 
 .content {
   position: relative;
-  padding: 20px;
+  padding: 35px;
   background-color: var(--secondary);
   color: var(--light-grey);
   border-radius: 15px;
   border: 2px dotted var(--border);
   max-width: 720px;
+  filter: drop-shadow(2px 4px 6px black);
+  transition: border-radius 1s;
 }
-
-h1 {
+.content.active {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.content .highlight {
+  font-family: courier;
+  color: var(--highlight);
+}
+.content h1 {
   font-size: 26px;
   font-weight: normal;
   color: var(--light-text);
 }
-
-.proper {
+.content .proper {
   font-style: italic;
 }
-
-input {
-  padding: 10px;
+.content form {
+  margin-top: 20px;
+}
+.content input {
+  padding: 12px;
   width: auto;
   border: 4px solid var(--border);
   border-radius: 3px;
@@ -67,40 +78,46 @@ input {
   color: var(--light-grey);
   background-color: var(--input-field);
   outline: none;
+  margin-right: 20px;
+  filter: drop-shadow(1px 1px 2px #000);
 }
-input::-moz-placeholder {
+.content input::-moz-placeholder {
   color: var(--input-field);
   opacity: 0.6;
 }
-input::placeholder {
+.content input::placeholder {
   color: var(--input-field);
   opacity: 0.6;
 }
-input:focus {
+.content input:focus {
   border-color: var(--primary-color);
   box-shadow: 0 0 0 2px var(--primary-color);
 }
-
-.button {
+.content input#file-input {
+  box-shadow: 0 0 0 2px transparent;
+}
+.content input#file-input:hover {
+  border-color: var(--light-blue);
+}
+.content .button {
   position: relative;
   padding: 10px 20px;
-  margin: 10px 10px;
-  border: none;
+  border: 2px solid var(--light-blue);
   border-radius: 4px;
   font-size: 16px;
   font-weight: bold;
   color: #fff;
-  background-color: var(--primary-color);
+  background-color: var(--dark-bg);
   cursor: pointer;
-  transition: background-color 0.3s;
+  box-shadow: inset 0 0 0 0 var(--primary-color);
+  transition: ease-out 0.5s;
 }
-.button.active {
+.content .button:hover {
   background-color: var(--light-blue);
+  box-shadow: inset 400px 0 0 0 var(--light-blue);
+  filter: drop-shadow(0px 0px 1px var(--light-blue));
 }
-.button:hover {
-  background-color: var(--light-blue);
-}
-.button:after {
+.content .button:after {
   position: absolute;
   content: "";
   left: -8px;
@@ -108,22 +125,52 @@ input:focus {
   width: 100%;
   height: 100%;
   border: 4px solid transparent;
+  background-color: transparent;
   border-radius: 9px;
-  transition: position 0.3s;
+  transition: all 0.3s;
+  opacity: 0;
+}
+.content .button:hover:after {
+  transform: translateX(0%) translateY(110%);
+  content: "";
+  background-color: transparent;
+  opacity: 1;
 }
 
 #status {
-  margin-top: 20px;
   text-align: right;
   color: #fff;
+  height: 188px;
+  text-align: right;
+  color: #fff;
+  background-color: rgba(47, 59, 84, 0.1607843137);
+  max-width: 780px;
+  width: 100%;
+  z-index: -1;
+  opacity: 0;
+  transform: translate(0, -130px);
+  transition: all 1s ease-in-out;
+}
+#status.active {
+  border-radius: 20px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  transform: translate(0, -1px);
+  background-color: rgba(0, 123, 255, 0.05);
+  opacity: 1;
+  z-index: 1;
+}
+#status .container {
+  padding-top: 60px;
+  padding-bottom: 50px;
+  padding-right: 35px;
 }
 #status span {
   display: inline-flex;
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
   color: var(--highlight);
   padding: 6px;
-  border-radius: 6px;
   opacity: 0;
   transition: all 1.5s;
 }
@@ -143,15 +190,15 @@ input:focus {
   background-color: var(--download-hover);
 }
 
-#download-link {
+.download-link {
   background-color: green;
   position: relative;
   transition: all 1.2s;
   margin-left: 10px;
+  transition: ease-out 0.4s;
 }
-#download-link:after {
-  position: absolute;
-  content: "";
+.download-link:hover {
+  filter: drop-shadow(1px 1px 2px #000);
 }
 
 .author {
@@ -165,6 +212,7 @@ input:focus {
 }
 .author .love {
   font-size: 10px;
+  filter: drop-shadow(1px 1px 2px #000);
 }
 .author a {
   color: var(--light-grey);
@@ -221,6 +269,7 @@ input:focus {
 }
 #terminate .icon i {
   font-size: 24px;
+  filter: drop-shadow(1px 1px 2px #000);
 }
 #terminate .icon i:hover {
   background-color: var(--dark-bg);

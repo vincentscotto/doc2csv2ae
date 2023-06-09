@@ -13,9 +13,9 @@
 		<div class="content">
 			<h1>DOC-TO-CSV DATA CONVERTER</h1>
 			<p>
-				This will convert a docspot word doc
-				<em>(a properly structured word doc)</em> into a CSV file that you can
-				then use with the AE script (<span style="font-family: courier"
+				This will convert a word doc
+				<em>(a specific properly structured word doc)</em> into a CSV file that
+				you can then use with the AE script (<span class="highlight"
 					>csv2ae.jsx</span
 				>) to create frame compositions.
 			</p>
@@ -27,10 +27,11 @@
 			</form>
 
 			<div id="server-messages"></div>
-
-			<div id="status">
+		</div>
+		<div id="status">
+			<div class="container">
 				<span id="status-text"></span>
-				<a id="download-link" style="display: none" href="" download></a>
+				<a class="download-link" style="display: none" href="" download></a>
 			</div>
 		</div>
 		<div class="author">
@@ -49,7 +50,8 @@
 			const fileInput = document.getElementById("file-input");
 			const convertButton = document.getElementById("convert");
 			const statusText = document.getElementById("status-text");
-			const downloadLink = document.getElementById("download-link");
+			const statusWrapper = document.getElementById("status");
+			const downloadLink = document.querySelector(".download-link");
 			const terminate = document.getElementById("terminate");
 
 			fileInput.addEventListener("change", function () {
@@ -73,7 +75,9 @@
 					xhr.open("POST", "/convert");
 					xhr.onload = function () {
 						if (xhr.status === 200) {
-							statusText.innerHTML = `Great success! Conversion completed. Now you can import into AE using the script csv2ae.jsx.`;
+							content.classList.add("active");
+							statusWrapper.classList.add("active");
+							statusText.innerHTML = `Great success! Conversion completed. You can now import into AE using the script csv2ae.jsx.`;
 							downloadLink.href = xhr.responseText;
 							downloadLink.download = file.name;
 							downloadLink.innerHTML = "Download CSV";
